@@ -70,10 +70,11 @@ int main(int argc, char **argv){
                 abort ();
         }
     }
+    
     cout << filenameIN << " " << filenameOUT << " " << numVector << endl;
     //Aquí debe escribir su lógica
 
-    vector<int> myVector;
+    
     fstream fileIn(filenameIN);
     ofstream fileOut(filenameOUT);
     
@@ -84,7 +85,6 @@ int main(int argc, char **argv){
         fileIn.open(filenameIN, ios::in);
     }
 
-    ofstream fileOut(filenameOUT);
     if(fileIn.is_open()){
         fileIn.open(filenameIN);
     }
@@ -97,7 +97,7 @@ int main(int argc, char **argv){
 
     for(int i = 0; i < numVector; i++){
         getline(fileIn, line);
-        //cout << "Imprimiendo la linea " << i << line << endl;
+        cout << "Imprimiendo la linea " << i << line << endl;
         vector<string> misNumeros = split(line, " ");
         int RandomIndex = rand() % misNumeros.size(); //Se selecciona un valor random de acuerdo al tamaño del vector
         int valorRandom = stoi(misNumeros[RandomIndex]); //Se selecciona un valor random del contenido del vector misNumeros a traves del numero RandomIndex
