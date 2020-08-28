@@ -21,7 +21,7 @@ using namespace std;
 ///
 vector<string> split(const string& str, const string& delim)
 {
-    printf("A");
+    
     vector<string> tokens;
     size_t prev = 0, pos = 0;
     do
@@ -81,11 +81,11 @@ int main(int argc, char **argv){
     cout << "Iniciando Reloj..." << endl;
     t = clock();
 
-    if(fileIn.is_open()){
+    if(!fileIn.is_open()){
         fileIn.open(filenameIN, ios::in);
     }
 
-    if(fileIn.is_open()){
+    if(!fileIn.is_open()){
         fileIn.open(filenameIN);
     }
 
@@ -101,27 +101,22 @@ int main(int argc, char **argv){
         vector<string> misNumeros = split(line, " ");
         int RandomIndex = rand() % misNumeros.size(); //Se selecciona un valor random de acuerdo al tamaño del vector
         int valorRandom = stoi(misNumeros[RandomIndex]); //Se selecciona un valor random del contenido del vector misNumeros a traves del numero RandomIndex
+        
 
         int acumulador = 0;
         for(int j = 0; j < misNumeros.size(); j++){
             acumulador += stoi(misNumeros[j]);
-            
-            
-            
-
             //cout << misNumeros[j]<< " ";
         }
         
-        sumaFinal = acumulador - valorRandom;
-        ValoresSumados[i]=sumaFinal;
-        cout << acumulador << endl;
         
+        sumaFinal = acumulador - valorRandom;
+        ValoresSumados.push_back(sumaFinal);
+        cout <<"Valores Sumados:" << ValoresSumados[i] << endl;
+        fileOut << ValoresSumados[i] << endl;
     }
-
-    for (int i = 0; i< ValoresSumados.size(); i ++){
-
-        cout << ValoresSumados[i] << endl;
-    }
+    
+    
     
     t = clock() - t;
     cout << ((float)t) << " segundos." << endl;
