@@ -4,6 +4,8 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <time.h>
+#include <ctime>
 #include <unistd.h>
 
 using namespace std;
@@ -40,6 +42,9 @@ vector<string> split(const string& str, const string& delim)
 int main(int argc, char **argv){
     
     int c;
+    clock_t t;
+
+    srand ( time(NULL) );
     
     vector<int> myVector;
     
@@ -71,6 +76,9 @@ int main(int argc, char **argv){
     vector<int> myVector;
     fstream fileIn(filenameIN);
     ofstream fileOut(filenameOUT);
+    
+    cout << "Iniciando Reloj..." << endl;
+    t = clock();
 
     if(fileIn.is_open()){
         fileIn.open(filenameIN, ios::in);
@@ -84,21 +92,38 @@ int main(int argc, char **argv){
     vector<int> ValoresSumados;
     int suma=0;
     string line;
+
+    int sumaFinal = 0;
+
     for(int i = 0; i < numVector; i++){
         getline(fileIn, line);
         //cout << "Imprimiendo la linea " << i << line << endl;
         vector<string> misNumeros = split(line, " ");
+        int RandomIndex = rand() % misNumeros.size(); //Se selecciona un valor random de acuerdo al tamaño del vector
+        int valorRandom = stoi(misNumeros[RandomIndex]); //Se selecciona un valor random del contenido del vector misNumeros a traves del numero RandomIndex
+
         int acumulador = 0;
         for(int j = 0; j < misNumeros.size(); j++){
             acumulador += stoi(misNumeros[j]);
-            suma += acumulador;
             
+            
+            
+
             //cout << misNumeros[j]<< " ";
         }
+        
+        sumaFinal = acumulador - valorRandom;
+        ValoresSumados[i]=sumaFinal;
         cout << acumulador << endl;
-        ValoresSumados[i]=suma;
-        suma=0;
+        
     }
 
+    for (int i = 0; i< ValoresSumados.size(); i ++){
+
+        cout << ValoresSumados[i] << endl;
+    }
+    
+    t = clock() - t;
+    cout << ((float)t) << " segundos." << endl;
     return 0;
 }
